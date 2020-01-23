@@ -14,15 +14,15 @@ Our schema has a single Fact Table that will house the records of the songs play
 
 ### Fact Table - Songplays
 
-`songplay_id BIGSERIAL PRIMARY KEY`: We expect dozens of NextSong events per day. If we assume 12 events per hour, we can have 20,428 years, which is enough time to figure out alternative storage solutions or lifecycle rules for our data. 
-`start_time timestamp`: Using the built in type in PostgreSQL will allow us not to have to worry about Epoch conversions or Integer overflows. It also sets the stage to encode a Timezone with our column down the road should we have to provide the service in multiple regions. This property could have been a FOREIGN KEY to the ID in times table.
-`user_id int NOT NULL`: By forcing not null, we make sure our Pipelines sanitize the inputs. 
-`level varchar`: Denotes whether the play is free or paid.
-`song_id varchar`: While a `varchar` suffices, this could have been a FOREIGN KEY to the songs table PRIMARY KEY.
-`artist_id varchar`: While a `varchar` suffices, this could have been a FOREIGN KEY to the artists table PRIMARY KEY.
-`session_id int`: Denotes the User Session.
-`location varchar`: US City and the State of Songplay.
-`user_agent varchar`: Browser User Agent (soon to be deprecated), might be a good idea to revise API.
+  - `songplay_id BIGSERIAL PRIMARY KEY`: We expect dozens of NextSong events per day. If we assume 12 events per hour, we can have 20,428 years, which is enough time to figure out alternative storage solutions or lifecycle rules for our data. 
+  - `start_time timestamp`: Using the built in type in PostgreSQL will allow us not to have to worry about Epoch conversions or Integer overflows. It also sets the stage to encode a Timezone with our column down the road should we have to provide the service in multiple regions. This property could have been a FOREIGN KEY to the ID in times table.
+  - `user_id int NOT NULL`: By forcing not null, we make sure our Pipelines sanitize the inputs. 
+  - `level varchar`: Denotes whether the play is free or paid.
+  - `song_id varchar`: While a `varchar` suffices, this could have been a FOREIGN KEY to the songs table PRIMARY KEY.
+  - `artist_id varchar`: While a `varchar` suffices, this could have been a FOREIGN KEY to the artists table PRIMARY KEY.
+  - `session_id int`: Denotes the User Session.
+  - `location varchar`: US City and the State of Songplay.
+  - `user_agent varchar`: Browser User Agent (soon to be deprecated), might be a good idea to revise API.
 
 ### Dimension Tables
 
@@ -86,11 +86,11 @@ We observe that `Setanta matins` by `Elena` is the only match. What we can do is
 
 The directory structure is as follows:
 
-`test.ipynb` displays the first few rows of each table to let you check your database.
-`create_tables.py` drops and creates your tables. You run this file to reset your tables before each time you run your ETL scripts.
-`etl.ipynb` reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
-`etl.py` reads and processes files from song_data and log_data and loads them into your tables. You can fill this out based on your work in the ETL notebook.
-`sql_queries.py` contains all your sql queries, and is imported into the last three files above.
+  - `test.ipynb` displays the first few rows of each table to let you check your database.
+  - `create_tables.py` drops and creates your tables. You run this file to reset your tables before each time you run your ETL scripts.
+  - `etl.ipynb` reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
+  - `etl.py` reads and processes files from song_data and log_data and loads them into your tables. You can fill this out based on your work in the ETL notebook.
+  - `sql_queries.py` contains all your sql queries, and is imported into the last three files above.
 
 To run the Python Files it is recommended to open a console and perform the following:
 
