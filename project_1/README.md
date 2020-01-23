@@ -52,19 +52,23 @@ Our schema has a single Fact Table that will house the records of the songs play
 
 A lot of information in this table is redundant, and we likely can remove it in favor of storing an ISO String. The ISO String would need to be transformed by every client of the data, but this means encoding all relevant information in a single string. This change would reduce the possibilities of stale or wrong data in case of a pipeline bug. 
 
+We set all properties as `NOT NULL` because they are all based on a Unix Epoch, which means all of them should be valid.
+
   - `start_time timestamp PRIMARY KEY`
-  - `hour int`
-  - `day int`
-  - `week int`
-  - `month int`
-  - `year int`
-  - `weekday int`
+  - `hour int NOT NULL`
+  - `day int NOT NULL`
+  - `week int NOT NULL`
+  - `month int NOT NULL`
+  - `year int NOT NULL`
+  - `weekday int NOT NULL`
 
 ### ETL Justification
 
 By enforcing PRIMARY KEYS that are not nullable, now our pipeline needs to go through the trouble of dealing with blank strings. Checking for them is trivial and makes sure we save valid data into our tables.
 
-The one thing that could be improved is Duplicate handling, right now our ETL Pipeline will drop duplicates, but an alternative would be to pass the values twice so that our INSERT query becomes an UPSERT. This change would depend on the business needs, but it is entirely plausible that we receive new artist and song metadata (e.g., name change, new aliases, or modern band or artist picture).
+We perform an UPSERT on Artists, Songs, and Users data. We tradeoff pipeline performance in exchange for making sure updates to the record are possible. This change would depend on the business needs, but it is entirely plausible that we receive new artist and song metadata (e.g., name change, new aliases, or modern band or artist picture).
+
+In the case of Times INSERT, we DO NOTHING in case of conflict, because all other properties are going to be the same. 
 
 ### Analysis
 

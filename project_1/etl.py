@@ -12,13 +12,18 @@ def process_song_file(cur, filepath):
 
     # insert song record
     song_data = df[["song_id", "title", "artist_id", "year", "duration"]]
-    for _, row in song_data.iterrows():
+    for row in song_data.to_dict(orient='records'):
         cur.execute(song_table_insert, row)
-    
     
     # insert artist record
     artist_data = df[["artist_id", "artist_name", "artist_location", "artist_latitude", "artist_longitude"]]
-    for _, row in artist_data.iterrows():
+    artist_data = artist_data.rename(columns={
+        'artist_name': 'name',
+        'artist_location': 'location',
+        'artist_latitude': 'latitude',
+        'artist_longitude': 'longitude'
+    })
+    for row in artist_data.to_dict(orient='records'):
         cur.execute(artist_table_insert, row)
 
 def timestamp_to_row(timestamp):
@@ -48,9 +53,14 @@ def process_log_file(cur, filepath):
 
     # load user table
     user_df = df[["userId", "firstName", "lastName", "gender", "level"]]
+    user_df = user_df.rename(columns={
+        'userId': 'user_id',
+        'firstName': 'first_name',
+        'lastName': 'last_name'
+    })
 
     # insert user records
-    for _, row in user_df.iterrows():
+    for row in user_df.to_dict(orient='records'):
         cur.execute(user_table_insert, row)
 
     # insert songplay records
@@ -72,6 +82,7 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """Will walk through our JSON Data Dump, read files, and insert into their respective Tables."""
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):

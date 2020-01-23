@@ -12,33 +12,41 @@ songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (songplay_id BI
                                                                 start_time timestamp, 
                                                                 user_id int NOT NULL,
                                                                 level varchar,
-                                                                song_id varchar, artist_id varchar,
-                                                                session_id int, location varchar,
+                                                                song_id varchar,
+                                                                artist_id varchar,
+                                                                session_id int,
+                                                                location varchar,
                                                                 user_agent varchar)
 """)
 
 user_table_create = ("""CREATE TABLE IF NOT EXISTS users (user_id int PRIMARY KEY, 
                                                             first_name varchar, 
-                                                            last_name varchar, gender char(1),
+                                                            last_name varchar,
+                                                            gender char(1),
                                                             level varchar)
 """)
 
 song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (song_id varchar PRIMARY KEY, 
                                                                 title varchar, 
-                                                                artist_id varchar, year int,
+                                                                artist_id varchar,
+                                                                year int,
                                                                 duration numeric)
 """)
 
 artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (artist_id varchar PRIMARY KEY, 
                                                                 name varchar,
-                                                                location varchar, latitude numeric,
+                                                                location varchar,
+                                                                latitude numeric,
                                                                 longitude numeric)
 """)
 
 time_table_create = ("""CREATE TABLE IF NOT EXISTS time (start_time timestamp PRIMARY KEY, 
-                                                                hour int,
-                                                                day int, week int,
-                                                                month int, year int, weekday int)
+                                                                hour int NOT NULL,
+                                                                day int NOT NULL, 
+                                                                week int NOT NULL,
+                                                                month int NOT NULL, 
+                                                                year int NOT NULL, 
+                                                                weekday int NOT NULL)
 """)
 
 # INSERT RECORDS
@@ -54,25 +62,37 @@ songplay_table_insert = ("""INSERT INTO songplays (start_time,
 user_table_insert = ("""INSERT INTO users (user_id, first_name, 
                                             last_name, gender,
                                             level)
-                                    VALUES (%s, %s, %s, %s, %s)
+                                    VALUES (%(user_id)s, %(first_name)s, %(last_name)s, %(gender)s, %(level)s)
                                     ON CONFLICT(user_id)
-                                    DO NOTHING
+                                    DO UPDATE SET
+                                        first_name=%(first_name)s,
+                                        last_name=%(last_name)s, 
+                                        gender=%(gender)s,
+                                        level=%(level)s
 """)
 
 song_table_insert = ("""INSERT INTO songs (song_id, title, 
                                             artist_id, year,
                                             duration)
-                                    VALUES (%s, %s, %s, %s, %s)
+                                    VALUES (%(song_id)s, %(title)s, %(artist_id)s, %(year)s, %(duration)s)
                                     ON CONFLICT(song_id)
-                                    DO NOTHING
+                                    DO UPDATE SET
+                                        title=%(title)s,
+                                        artist_id=%(artist_id)s, 
+                                        year=%(year)s,
+                                        duration=%(duration)s
 """)
 
 artist_table_insert = ("""INSERT INTO artists (artist_id, name,
                                                 location, latitude,
                                                 longitude)
-                                    VALUES (%s, %s, %s, %s, %s)
+                                    VALUES (%(artist_id)s, %(name)s, %(location)s, %(latitude)s, %(longitude)s)
                                     ON CONFLICT(artist_id)
-                                    DO NOTHING
+                                    DO UPDATE SET
+                                        name=%(name)s,
+                                        location=%(location)s, 
+                                        latitude=%(latitude)s,
+                                        longitude=%(longitude)s
 """)
 
 
