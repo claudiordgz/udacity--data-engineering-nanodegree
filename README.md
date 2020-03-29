@@ -4,6 +4,16 @@ This repository contains my notes and projects from Udacity's DEND.
 
 It uses Anaconda and Jupyter Notebooks and was run on WSL.
 
+## Environment
+
+The Environment has been packaged in `dend.yml`. 
+
+To recreate:
+
+```
+$ conda env create -f <environment-name>.yml
+```
+
 ## Global Dependencies
 
 The following might be needed depending on the Notebook or Script that you are executing.
