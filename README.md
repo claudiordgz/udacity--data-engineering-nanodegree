@@ -6,12 +6,18 @@ It uses Anaconda and Jupyter Notebooks and was run on WSL.
 
 ## Environment
 
-The Environment has been packaged in `dend.yml`. 
+The Environment has been packaged in `dend.yml`.
 
 To recreate:
 
 ```
 $ conda env create -f <environment-name>.yml
+```
+
+To update dependencies:
+
+```
+$ conda env export > <environment-name>.yaml
 ```
 
 ## Global Dependencies
@@ -26,7 +32,7 @@ Steps might differ on your system but the gist is to create the following:
   2. User named `student` with password `student`
 
 ```
-$ sudo apt update 
+$ sudo apt update
 $ sudo apt install postgresql postgresql-contrib
 $ sudo adduser student
 $ sudo service postgresql start

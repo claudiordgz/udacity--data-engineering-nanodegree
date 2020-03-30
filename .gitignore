@@ -125,3 +125,5 @@ dmypy.json
 
 customer_reviews_199*
 password
+
+sparkify_log_small.csv/
