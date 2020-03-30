@@ -17,7 +17,7 @@ $ conda env create -f <environment-name>.yml
 To update dependencies:
 
 ```
-$ conda env export > <environment-name>.yaml
+$ conda env update -f <environment-name>.yml --prune
 ```
 
 ## Global Dependencies
