@@ -34,6 +34,7 @@ COPY {}
 FROM '{}'
 ACCESS_KEY_ID '{{}}'
 SECRET_ACCESS_KEY '{{}}'
+REGION AS 'us-west-2'
 IGNOREHEADER 1
 DELIMITER ','
 """

@@ -16,10 +16,10 @@ def log_details(*args, **kwargs):
     # NOTE: Look here for context variables passed in on kwargs:
     #       https://airflow.apache.org/macros.html
     #
-    ds = '' # kwargs[]
-    run_id = '' # kwargs[]
-    previous_ds = '' # kwargs.get('')
-    next_ds = '' # kwargs.get('')
+    ds = kwargs.get('ds', '') # kwargs[]
+    run_id =  kwargs.get('run_id', '') # kwargs[]
+    previous_ds =  kwargs.get('prev_ds', '') # kwargs.get('')
+    next_ds =  kwargs.get('next_ds', '') # kwargs.get('')
 
     logging.info(f"Execution date is {ds}")
     logging.info(f"My run id is {run_id}")

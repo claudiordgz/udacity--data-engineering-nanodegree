@@ -5,6 +5,7 @@ from airflow import DAG
 from airflow.models import Variable
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.S3_hook import S3Hook
+from airflow.hooks.base_hook import BaseHook
 
 #
 # TODO: There is no code to modify in this exercise. We're going to create a connection and a
@@ -22,7 +23,9 @@ from airflow.hooks.S3_hook import S3Hook
 # 11. Run the DAG
 
 def list_keys():
-    hook = S3Hook(aws_conn_id='aws_credentials')
+    # will use AWS_PROFILE if any is defined
+    # uses aws_default by default
+    hook = S3Hook() 
     bucket = Variable.get('s3_bucket')
     prefix = Variable.get('s3_prefix')
     logging.info(f"Listing Keys from {bucket}/{prefix}")

@@ -1,6 +1,6 @@
 # Instructions
 # Similar to what you saw in the demo, copy and populate the trips table. Then, add another operator which creates a traffic analysis table from the trips table you created. Note, in this class, we won’t be writing SQL -- all of the SQL statements we run against Redshift are predefined and included in your lesson.
-
+# Use a Postgres Connection to connect with Redshift using the port 5439
 import datetime
 import logging
 
@@ -14,7 +14,7 @@ import sql_statements
 
 
 def load_data_to_redshift(*args, **kwargs):
-    aws_hook = AwsHook("aws_credentials")
+    aws_hook = AwsHook()
     credentials = aws_hook.get_credentials()
     redshift_hook = PostgresHook("redshift")
     redshift_hook.run(sql_statements.COPY_ALL_TRIPS_SQL.format(credentials.access_key, credentials.secret_key))
