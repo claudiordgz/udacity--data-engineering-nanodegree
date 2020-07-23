@@ -131,3 +131,6 @@ sparkify_log_small.csv/
 NASA_access_log_Jul95.gz
 
 project_4/data/*data
+project_capstone/immigration-data
+project_capstone/temperature-data
+project_capstone/sas-data
