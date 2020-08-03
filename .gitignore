@@ -134,3 +134,7 @@ project_4/data/*data
 project_capstone/immigration-data
 project_capstone/temperature-data
 project_capstone/sas-data
+project_capstone/gps-files
+project_capstone/metastore_db
+project_capstone/derby.log
+project_capstone/tmp
