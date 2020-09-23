@@ -1,3 +1,4 @@
 {
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.pythonPath": "/home/claudiordgz/anaconda3/envs/dend/bin/python"
 }
